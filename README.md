@@ -2,14 +2,14 @@
 
 ## 安装方法
 ```
-git clone 
+git clone https://github.com/NothinkingGao/luckboy.git
 ```
 ## 运行
 ```
 cd luckboy
 python luckboy.py
 ```
-##程序默认一组投注，你也可以改成你自己的投注，也可以增加投注次数，我投了100万次才中的一个二等奖，看来彩票不能玩啊，逃！
+## 程序默认一组投注，你也可以改成你自己的投注，也可以增加投注次数，我投了100万次才中的一个二等奖，看来彩票不能玩啊，逃！
 ```
 #开始投注
 def cathectic():
