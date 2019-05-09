@@ -8,66 +8,55 @@ def getResult():
 	green=random.sample(range(1,16),1)[0]
 	return red,green
 #中奖条件
-winnerCondition={
-	'一等奖':{
-		'red':6,
-		'green':True,
-		'money':10000000
-	},
-	'二等奖':{
-		'red':6,
-		'green':False,
-		'money':5000000
-	},
-	'三等奖':{
-		'red':5,
-		'green':True,
-		'money':300000
-	},
-	'四等奖':{
-		'red':5,
-		'green':False,
-		'money':20000
-	},
-	'四等奖':{
-		'red':4,
-		'green':True,
-		'money':20000
-	},
-	'五等奖':{
-		'red':4,
-		'green':False,
-		'money':100
-	},
-	'五等奖':{
-		'red':3,
-		'green':True,
-		'money':100
-	},
-	'六等奖':{
-		'red':2,
-		'green':True,
-		'money':5
-	},
-	'六等奖':{
-		'red':1,
-		'green':True,
-		'money':5
-	},
-	'六等奖':{
-		'red':0,
-		'green':True,
-		'money':5
-	}
+winnerCondition = {
+    '一等奖': {
+        'red': [6],
+        'green': [True],
+        'money': 10000000
+    },
+    '二等奖': {
+        'red': [6],
+        'green': [False],
+        'money': 5000000
+    },
+    '三等奖': {
+        'red': [5],
+        'green': [True],
+        'money': 300000
+    },
+    '四等奖': {
+        'red': [5, 4],
+        'green': [False, True],
+        'money': 20000
+    },
+    '五等奖': {
+        'red': [4, 3],
+        'green': [False, True],
+        'money': 100
+    },
+    '六等奖': {
+        'red': [2, 1, 0],
+        'green': [True, True, True],
+        'money': 5
+    }
 }
+
+# str转bool
+def str_to_bool(str):
+    return True if str.lower() == 'true' else False
+
 #查看中奖结果
-def lucklyResult(selectRed,selectGreen):
-	red,green=getResult()
-	luckly_red=[ item for item in selectRed if item in red]
-	luckly_green=True if green==selectGreen else False
-	for key,value in winnerCondition.items():
-		if len(luckly_red)==int(value['red']) and luckly_green==value['green']:
-			return key,value['money'],red,green
+def lucklyResult(selectRed, selectGreen):
+    red, green = getResult()
+    luckly_red = [item for item in selectRed if item in red]
+    luckly_green = True if green == selectGreen else False
+    for key, value in winnerCondition.items():
+        for index in range(len(value['red'])):
+            if len(luckly_red) == int(''.join(
+                    str(e) for e in value['red']
+                [index:index + 1])) and luckly_green == str_to_bool(''.join(
+                    str(e) for e in value['green'][index:index + 1])):
+                return key, value['money'], red, green
 
 #开始投注
 def cathectic():
