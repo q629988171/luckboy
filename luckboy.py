@@ -4,9 +4,11 @@ import random
 
 #开奖结果
 def getResult():
-	red=random.sample(range(1,33),6)
-	green=random.sample(range(1,16),1)[0]
-	return red,green
+    red = random.sample(range(1, 33), 6)
+    green = random.sample(range(1, 16), 1)[0]
+    return red, green
+
+
 #中奖条件
 winnerCondition = {
     '一等奖': {
@@ -41,9 +43,16 @@ winnerCondition = {
     }
 }
 
+
 # str转bool
 def str_to_bool(str):
     return True if str.lower() == 'true' else False
+
+
+# list<Integer>转str
+def list_to_str(list):
+    return ''.join(str(e) for e in list)
+
 
 #查看中奖结果
 def lucklyResult(selectRed, selectGreen):
@@ -52,24 +61,28 @@ def lucklyResult(selectRed, selectGreen):
     luckly_green = True if green == selectGreen else False
     for key, value in winnerCondition.items():
         for index in range(len(value['red'])):
-            if len(luckly_red) == int(''.join(
-                    str(e) for e in value['red']
-                [index:index + 1])) and luckly_green == str_to_bool(''.join(
-                    str(e) for e in value['green'][index:index + 1])):
+            if len(luckly_red) == int(
+                    list_to_str(
+                        value['red'][index:index +
+                                     1])) and luckly_green == str_to_bool(
+                                         list_to_str(
+                                             value['green'][index:index + 1])):
                 return key, value['money'], red, green
+
 
 #开始投注
 def cathectic():
-	#我的投注,看看循环n次能中多少次
-	selectRed=[21, 16, 18, 20, 13, 15]
-	selectGreen=5
-	result=lucklyResult(selectRed,selectGreen)
+    #我的投注,看看循环n次能中多少次
+    selectRed = [21, 16, 18, 20, 13, 15]
+    selectGreen = 5
+    result = lucklyResult(selectRed, selectGreen)
 
-	if result:
-		print '开奖号码为:{0}:{1}'.format(result[2],result[3])
-		print '中奖结果为:{0},获得奖金为:{1}!'.format(result[0],result[1])
-	else:
-		print '很遗憾,您没有中奖!'
+    if result:
+        print('开奖号码为:{0}:{1}'.format(result[2], result[3]))
+        print('中奖结果为:{0},获得奖金为:{1}!'.format(result[0], result[1]))
+    else:
+        print('很遗憾,您没有中奖!')
 
-for i in range(1,10000):
-	result=cathectic()
+
+for i in range(1, 10000):
+    cathectic()
